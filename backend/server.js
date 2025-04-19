@@ -22,6 +22,9 @@ mongoose
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
+  const chatRoute = require("./routes/chat");
+app.use("/api", chatRoute);
+
 // Route Handling
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -43,7 +46,5 @@ const HOST = "0.0.0.0";
 
 app.listen(PORT, HOST, () => {
   console.log(`🔥 Server running on http://${HOST}:${PORT}`);
-  console.log(`🔗 Try these URLs:
-  http://localhost:${PORT}
-  http://127.0.0.1:${PORT}`);
+  console.log(`🔗 Try this URL: http://localhost:${PORT}`);
 });
