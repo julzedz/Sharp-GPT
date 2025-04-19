@@ -1,17 +1,13 @@
 const express = require("express");
-const { Configuration, OpenAIApi } = require("openai");
+const openai = require("openai");
 const router = express.Router();
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+  openai.apiKey = process.env.OPENAI_API_KEY;
 
-const openai = new OpenAIApi(configuration);
-
-router.post('/', async (req, res) => {
+router.post('/chat', async (req, res) => {
   const { message } = req.body;
   try {
-    const response = await openai.createChatCompletion({
+    const response = await openai.Completion.create({
       model: 'text-davinci-003',
       prompt: message,
       max_tokens: 150,
