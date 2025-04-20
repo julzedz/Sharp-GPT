@@ -63,12 +63,12 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1>My $hat GPT 💯</h1>
+      <h1>Sharp GPT 💯</h1>
       <div className="chat-window">
         {messages.map((msg, index) => (
           <Message key={index} sender={msg.sender} text={msg.text} />
         ))}
-        {loading && <div className="loading">Bot is typing...</div>}{" "}
+        {loading && <div className="loading">Sharp GPT is typing...</div>}{" "}
       </div>
       <InputArea onSendMessage={handleSendMessage} />
     </div>
