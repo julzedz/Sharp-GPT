@@ -9,7 +9,7 @@ function Message({ sender, text }) {
   return (
   <div className={`message ${messageClass}`}>
     <div className="message-bubble">
-      <strong>{sender === "user" ? "You:" : "Bot:"}</strong>
+      <strong>{sender === "user" ? "You:" : "Sharp-GPT:"}</strong>
       <span dangerouslySetInnerHTML={{ __html: converter.makeHtml(text) }} />
     </div>
   </div>
