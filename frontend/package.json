@@ -2,7 +2,7 @@
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://julzedz.github.io/Sharp-GPT",
+  "homepage": "https://julzedz.github.io/Sharp-GPT/",
   "type": "module",
   "scripts": {
     "dev": "vite",
