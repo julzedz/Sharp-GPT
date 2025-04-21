@@ -64,7 +64,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1>Sharp GPT 💯</h1>
+      <h1>Sharp GPT 🤖</h1>
       <div className="chat-window">
         {messages.map((msg, index) => (
           <Message key={index} sender={msg.sender} text={msg.text} />

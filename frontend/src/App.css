@@ -42,7 +42,7 @@ h1 {
   flex-grow: 1;
   padding: 15px;
   overflow-y: auto;
-  height: 400px;
+  height: 77vh;
   display: flex;
   flex-direction: column;
 }
