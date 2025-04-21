@@ -8,12 +8,13 @@ function App() {
   // State to hold the conversation history
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const API_BASE_URL = "https://sharp-gpt.onrender.com";
 
   // Fetch chat history when component mounts
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/history");
+        const response = await axios.get(`${API_BASE_URL}/api/history`);
         setMessages(response.data);
       } catch (error) {
         console.error("Error fetching chat history:", error);
@@ -34,7 +35,7 @@ function App() {
 
     try {
       // 2. Send message to backend
-      const response = await axios.post("http://localhost:4000/api/chat", {
+      const response = await axios.post(`${API_BASE_URL}/api/chat`, {
         message: messageText,
       });
 
