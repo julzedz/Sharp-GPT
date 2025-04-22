@@ -47,6 +47,12 @@ h1 {
   flex-direction: column;
 }
 
+@media (max-width: 400px) {
+  .chat-window {
+    height: 72vh;
+  }
+}
+
 .loading {
     padding: 10px;
     font-style: italic;
