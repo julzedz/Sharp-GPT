@@ -20,7 +20,7 @@
 @media (max-width: 600px) {
   .message-bubble {
     max-width: 100%;
-    font-size: 10px;
+    font-size: 12px;
     padding: 8px 12px;
   }
 }
