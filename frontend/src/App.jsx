@@ -12,25 +12,45 @@ function App() {
 
   // Fetch chat history when component mounts
   useEffect(() => {
-    const fetchHistory = async () => {
+    const savedHistory = localStorage.getItem("chatHistory");
+    if (savedHistory) {
       try {
-        const response = await axios.get(`${API_BASE_URL}/api/history`);
-        setMessages(response.data);
-      } catch (error) {
-        console.error("Error fetching chat history:", error);
+        const parsedHistory = JSON.parse(savedHistory);
+        if (Array.isArray(parsedHistory)) {
+          setMessages(parsedHistory);
+        } else {
+          console.error(
+            "Invalid data format in local storage. Clearing History."
+          );
+          localStorage.removeItem("chatHistory"); //Clear bad data
+          setMessages([]); // Start with empty chat
+        }
+      } catch (e) {
+        console.error("Failed to parse chat history from local storage", e);
+        localStorage.removeItem("chatHistory"); //Clear bad data
+        setMessages([]); // Start with empty chat
       }
-    };
-    fetchHistory();
+    }
   }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("chatHistory", JSON.stringify(messages));
+    } catch (e) {
+      console.error("Failed to save chat hsitory to Local Storage", e);
+      alert("Warning: Chat history could not be saved to your browser.");
+    }
+  }, [messages]); // Dependency array: This effect runs everytime `messages` state array change
 
   const handleSendMessage = async (messageText) => {
     // 1. Add user message to state immediately
     const newUserMessage = {
       sender: "user",
       text: messageText,
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
     };
-    setMessages((prevMessages) => [...prevMessages, newUserMessage]);
+    // Update state using a function to ensure we have the latest state
+    setMessages((prevMessages) => [...prevMessages, newUserMessage]); // The save effect will trigger here
     setLoading(true);
 
     try {
@@ -39,13 +59,14 @@ function App() {
         message: messageText,
       });
 
-      // 3. Add bot response to state (backend already saved to DB)
+      // 3. Add bot response to state
       const botResponse = {
         sender: "bot",
         text: response.data.response,
-        timestamp: new Date(),
+        timestamp: new Date().toISOString(),
       };
-      setMessages((prevMessages) => [...prevMessages, botResponse]);
+      // Update state using a function to ensure we have the latest state
+      setMessages((prevMessages) => [...prevMessages, botResponse]); // The save effect will trigger here
     } catch (error) {
       console.error("Error sending message:", error);
       // Optional: Add an error message to the chat
@@ -54,7 +75,7 @@ function App() {
         {
           sender: "bot",
           text: "Error: Could not get a response.",
-          timestamp: new Date(),
+          timestamp: new Date().toISOString(),
         },
       ]);
     } finally {
